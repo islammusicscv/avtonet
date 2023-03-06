@@ -8,9 +8,9 @@ $id = (int) $_GET['id'];
 $query = "SELECT a.*, c.*, u.*, ci.title AS city  FROM cars c INNER JOIN adds a ON a.car_id=c.id 
     INNER JOIN users u ON a.user_id=u.id 
     INNER JOIN cities ci ON ci.id=u.city_id
-WHERE a.id=? AND a.user_id=?";
+WHERE a.id=?";
 $stmt = $pdo->prepare($query);
-$stmt->execute([$id, $user_id]);
+$stmt->execute([$id]);
 //preverim, da obstaja oglas s temi pogoji v bazi
 if ($stmt->rowCount() != 1) {
     header("Location: adds.php"); die();
@@ -118,8 +118,11 @@ $row = $stmt->fetch();
 
             while ($row = $stmt->fetch()) {
                 echo '<div class="komentar">';
-                echo '<div>'.$row['first_name'].' '.$row['last_name'].' @ '.$row['date_add'].'</div>';
-                echo '<div>'.$row['content'].'</div>';
+                echo '<div class="ime">'.$row['first_name'].' '.$row['last_name'].' @ '.$row['date_add'].'</div>';
+                echo '<div class="vsebina">'.$row['content'].'</div>';
+                if ($user_id == $row['user_id']) {
+                    echo '<div class="brisi"><a href="add_comment_delete.php?id='.$row['id'].'&add_id='.$id.'" class="fa fa-trash"></a></div>';
+                }
                 echo '</div>';
             }
             ?>

@@ -2271,3 +2271,27 @@ button,
     border-top: 0;
     margin-top: 0;
     padding-top: 0; }
+
+  /****** MOJ CSS ******/
+.komentar {
+  position: relative;
+  margin: 5px 0px;
+  padding: 5px;
+}
+.komentar .ime {
+  font-size: 0.7em;
+  font-weight: bold;
+  font-style: italic;
+}
+.komentar .brisi {
+  display: none;
+}
+.komentar:hover .brisi {
+  display: block;
+}
+.brisi {
+  text-align: right;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
