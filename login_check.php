@@ -14,6 +14,7 @@ if (!empty($email) && !empty($pass)) {
     if ($user && password_verify($pass, $user['pass'])) {
         session_start();
         $_SESSION['user_id'] = $user['id'];
+        $_SESSION['admin'] = $user['admin'];
         header("Location: index.php"); die();
     }
 }

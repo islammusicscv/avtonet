@@ -1,5 +1,6 @@
 <?php
 include_once "header.php";
+admin_only();
 ?>
 <h1>Kraji</h1>
 
