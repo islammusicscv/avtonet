@@ -105,6 +105,39 @@ $row = $stmt->fetch();
             </div>
         </div>
     </div>
+    <div class="row gtr-200" id="kometarOdsek">
+        <div class="col-6 col-12-medium">
+            <h3>Komentarji</h3>
+            <?php
+            $query = "SELECT c.*, u.first_name, u.last_name 
+                      FROM comments c INNER JOIN users u ON u.id=c.user_id 
+                      WHERE c.add_id = ? 
+                      ORDER BY c.date_add DESC";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$id]);
+
+            while ($row = $stmt->fetch()) {
+                echo '<div class="komentar">';
+                echo '<div>'.$row['first_name'].' '.$row['last_name'].' @ '.$row['date_add'].'</div>';
+                echo '<div>'.$row['content'].'</div>';
+                echo '</div>';
+            }
+            ?>
+        </div>
+        <div class="col-6 col-12-medium">
+            <form action="add_comment_insert.php" method="post">
+                <input type="hidden" name="add_id" value="<?php echo $id;?>" />
+                <div class="row gtr-uniform">
+                    <div class="col-12">
+                        <textarea name="content" placeholder="Vnesi komentar ..." required="required"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <input type="submit" value="Komentiraj">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
 <?php
